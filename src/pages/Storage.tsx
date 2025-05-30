@@ -2,7 +2,6 @@ import React from "react";
 import { useStorage } from "../hooks/useStorage";
 import { storage } from "../core/storage/localStorageHandler";
 
-// Start polling only once (colocar isso no index.tsx ou App.tsx futuramente seria melhor)
 storage.startPolling();
 
 const SetterComponent = () => {
