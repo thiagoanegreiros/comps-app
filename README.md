@@ -2,6 +2,7 @@
 
 Live on https://comps-app-l0pe.onrender.com/
 
+
 ![CI](https://github.com/thiagoanegreiros/comps-app/actions/workflows/ci.yml/badge.svg)
 ![CodeQL](https://github.com/thiagoanegreiros/comps-app/actions/workflows/codeql.yml/badge.svg)
 [![codecov](https://codecov.io/gh/thiagoanegreiros/comps-app/branch/master/graph/badge.svg)](https://codecov.io/gh/thiagoanegreiros/comps-app)
