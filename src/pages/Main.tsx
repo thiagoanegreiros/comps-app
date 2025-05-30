@@ -24,9 +24,9 @@ export const Main = () => {
 
         <button
           className="bg-purple-500 text-white py-2 px-4 rounded shadow cursor-pointer hover:bg-purple-600 transition"
-          onClick={() => navigate("/autocomplete")}
+          onClick={() => navigate("/filter")}
         >
-          Autocomplete Demo
+          Filter Demo
         </button>
       </div>
     </div>
