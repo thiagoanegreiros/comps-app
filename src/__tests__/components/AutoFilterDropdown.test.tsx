@@ -42,7 +42,6 @@ describe('AutoFilterDropdown', () => {
     const input = screen.getByPlaceholderText('Type to filter...');
     fireEvent.change(input, { target: { value: 'ap' } });
 
-    // Use matcher por função:
     expect(
       screen.getByText((_, element) => element?.textContent === 'Apple'),
     ).toBeInTheDocument();
@@ -105,7 +104,6 @@ describe('AutoFilterDropdown', () => {
     const input = screen.getByPlaceholderText('Type to filter...');
     fireEvent.change(input, { target: { value: 'an' } });
 
-    // Banana and Orange contain 'an'
     const banana = screen.getByText(
       (_, node) => node?.textContent === 'Banana',
     );
@@ -116,7 +114,6 @@ describe('AutoFilterDropdown', () => {
     expect(banana).toBeInTheDocument();
     expect(orange).toBeInTheDocument();
 
-    // Verifica que há pelo menos um <b> no DOM (onde ocorre o highlight)
     expect(banana.querySelector('b')).not.toBeNull();
     expect(orange.querySelector('b')).not.toBeNull();
   });

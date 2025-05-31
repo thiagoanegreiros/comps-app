@@ -96,11 +96,9 @@ describe('LocalStorageHandler (typed)', () => {
     handler.subscribe('user', callback);
     handler.startPolling(500);
 
-    // Sincroniza o previousValues no primeiro polling
     jest.advanceTimersByTime(500);
     callback.mockClear();
 
-    // Mesmo valor
     localStorage.setItem('user', JSON.stringify(user));
     jest.advanceTimersByTime(500);
 

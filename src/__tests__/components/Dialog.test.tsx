@@ -3,7 +3,6 @@ import { Dialog } from '../../components/Dialog';
 
 describe('Dialog component', () => {
   beforeEach(() => {
-    // Limpa o portal (document.body) a cada teste
     document.body.innerHTML = '';
   });
 
