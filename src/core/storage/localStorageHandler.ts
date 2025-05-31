@@ -1,9 +1,4 @@
-import type { StorageTypes } from './types';
-
-type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
-type JSONObject = { [key: string]: JSONValue };
-type JSONArray = JSONValue[];
-type Callback<T> = (value: T | null) => void;
+import type { Callback, JSONValue, StorageTypes } from './types';
 
 export class LocalStorageHandler<Types extends Record<string, JSONValue>> {
   private subscribers: {
