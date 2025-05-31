@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const Main = () => {
   const navigate = useNavigate();
@@ -10,21 +10,21 @@ export const Main = () => {
       <div className="flex flex-col gap-4 w-full max-w-xs">
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded shadow cursor-pointer hover:bg-blue-600 transition"
-          onClick={() => navigate("/storage")}
+          onClick={() => navigate('/storage')}
         >
           Basic Storage Demo
         </button>
 
         <button
           className="bg-green-500 text-white py-2 px-4 rounded shadow cursor-pointer hover:bg-green-600 transition"
-          onClick={() => navigate("/dialog")}
+          onClick={() => navigate('/dialog')}
         >
           Dialog Demo
         </button>
 
         <button
           className="bg-purple-500 text-white py-2 px-4 rounded shadow cursor-pointer hover:bg-purple-600 transition"
-          onClick={() => navigate("/filter")}
+          onClick={() => navigate('/filter')}
         >
           Filter Demo
         </button>

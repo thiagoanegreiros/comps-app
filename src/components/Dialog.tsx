@@ -1,6 +1,6 @@
-import React from "react";
-import type { ReactNode } from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import type { ReactNode } from 'react';
+import ReactDOM from 'react-dom';
 
 interface DialogProps {
   isOpen: boolean;
@@ -22,7 +22,9 @@ export const Dialog: React.FC<DialogProps> = ({
   if (!isOpen) return null;
 
   const dialogContent = (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center ${isModal ? 'bg-black bg-opacity-50' : ''}`}>
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center ${isModal ? 'bg-black bg-opacity-50' : ''}`}
+    >
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-4 relative">
         <button
           onClick={onClose}

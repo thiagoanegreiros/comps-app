@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo } from 'react';
 
 interface AutoFilterDropdownProps<T> {
   items: T[];
@@ -11,22 +11,22 @@ export function AutoFilterDropdown<T>({
   labelKey,
   valueChange,
 }: AutoFilterDropdownProps<T>) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   const filteredItems = useMemo(() => {
-    return items.filter((item) => {
+    return items.filter(item => {
       const label = String(item[labelKey]);
       return label.toLowerCase().includes(query.toLowerCase());
     });
   }, [items, query, labelKey]);
 
   const highlightMatch = (text: string) => {
-    const regex = new RegExp(`(${query})`, "ig");
+    const regex = new RegExp(`(${query})`, 'ig');
     const parts = text.split(regex);
     return (
       <>
         {parts.map((part, idx) =>
-          regex.test(part) ? <b key={idx}>{part}</b> : part
+          regex.test(part) ? <b key={idx}>{part}</b> : part,
         )}
       </>
     );
@@ -38,7 +38,7 @@ export function AutoFilterDropdown<T>({
         type="text"
         placeholder="Type to filter..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={e => setQuery(e.target.value)}
         className="w-full px-4 py-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
       <ul className="max-h-60 overflow-y-auto">

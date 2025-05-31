@@ -1,24 +1,23 @@
+import { useState, useEffect } from 'react';
+import { storage } from '../core/storage/localStorageHandler';
+import type { StorageTypes } from '../core/storage/types';
 
-import { useState, useEffect } from "react";
-import { storage } from "../core/storage/localStorageHandler";
-
-export function useStorage<T>(key: string, initialValue: T | null = null): [
-  T | null,
-  (value: T) => void,
-  () => void
-] {
-  const [value, setValue] = useState<T | null>(() => {
-    const stored = storage.getItem<T>(key);
+export function useStorage<K extends keyof StorageTypes>(
+  key: K,
+  initialValue: StorageTypes[K] | null = null,
+): [StorageTypes[K] | null, (value: StorageTypes[K]) => void, () => void] {
+  const [value, setValue] = useState<StorageTypes[K] | null>(() => {
+    const stored = storage.getItem(key);
     return stored !== null ? stored : initialValue;
   });
 
   useEffect(() => {
-    const unsubscribe = storage.subscribe<T>(key, setValue);
+    const unsubscribe = storage.subscribe(key, setValue);
     return () => unsubscribe();
   }, [key]);
 
-  const setStoredValue = (newValue: T) => {
-    storage.setItem<T>(key, newValue);
+  const setStoredValue = (newValue: StorageTypes[K]) => {
+    storage.setItem(key, newValue);
   };
 
   const removeStoredValue = () => {
