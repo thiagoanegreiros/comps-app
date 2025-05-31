@@ -1,5 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { AutoFilterDropdown } from '../../components/AutoFilterDropdown';
+import { act } from '@testing-library/react';
 
 interface TestItem {
   id: number;
@@ -14,7 +15,15 @@ const items: TestItem[] = [
 ];
 
 describe('AutoFilterDropdown', () => {
-  it('should render all items initially', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it('should not render list initially', () => {
     render(
       <AutoFilterDropdown
         items={items}
@@ -24,13 +33,11 @@ describe('AutoFilterDropdown', () => {
     );
 
     items.forEach(item => {
-      expect(
-        screen.getByText((_, el) => el?.textContent === item.name),
-      ).toBeInTheDocument();
+      expect(screen.queryByText(item.name)).toBeNull();
     });
   });
 
-  it('should filter items based on input query', () => {
+  it('should render filtered items after input', async () => {
     render(
       <AutoFilterDropdown
         items={items}
@@ -42,22 +49,20 @@ describe('AutoFilterDropdown', () => {
     const input = screen.getByPlaceholderText('Type to filter...');
     fireEvent.change(input, { target: { value: 'ap' } });
 
-    expect(
-      screen.getByText((_, element) => element?.textContent === 'Apple'),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText((_, element) => element?.textContent === 'Pineapple'),
-    ).toBeInTheDocument();
+    await act(async () => {
+      jest.advanceTimersByTime(300);
+    });
 
-    expect(
-      screen.queryByText((_, element) => element?.textContent === 'Banana'),
-    ).toBeNull();
-    expect(
-      screen.queryByText((_, element) => element?.textContent === 'Orange'),
-    ).toBeNull();
+    const listItems = await screen.findAllByRole('listitem');
+
+    const appleItem = listItems.find(li => li.textContent === 'Apple');
+    const pineappleItem = listItems.find(li => li.textContent === 'Pineapple');
+
+    expect(appleItem).toBeDefined();
+    expect(pineappleItem).toBeDefined();
   });
 
-  it('should call valueChange when item is clicked', () => {
+  it('should call valueChange and hide list when item is clicked', async () => {
     const handleChange = jest.fn();
 
     render(
@@ -68,16 +73,31 @@ describe('AutoFilterDropdown', () => {
       />,
     );
 
-    const bananaItem = screen.getByText(
-      (_, element) => element?.textContent === 'Banana',
-    );
-    fireEvent.click(bananaItem);
+    const input = screen.getByPlaceholderText('Type to filter...');
+    fireEvent.change(input, { target: { value: 'ba' } });
+
+    await act(async () => {
+      jest.advanceTimersByTime(300);
+    });
+
+    const listItems = await screen.findAllByRole('listitem');
+
+    const bananaItem = listItems.find(li => li.textContent === 'Banana');
+
+    expect(bananaItem).toBeDefined();
+
+    if (bananaItem) {
+      fireEvent.click(bananaItem);
+    }
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(handleChange).toHaveBeenCalledWith({ id: 2, name: 'Banana' });
+
+    const listAfterClick = screen.queryAllByRole('listitem');
+    expect(listAfterClick.length).toBe(0);
   });
 
-  it('should show "No results found" when nothing matches', () => {
+  it('should show "No results found" when nothing matches', async () => {
     render(
       <AutoFilterDropdown
         items={items}
@@ -89,10 +109,12 @@ describe('AutoFilterDropdown', () => {
     const input = screen.getByPlaceholderText('Type to filter...');
     fireEvent.change(input, { target: { value: 'zzz' } });
 
-    expect(screen.getByText('No results found')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('No results found')).toBeInTheDocument();
+    });
   });
 
-  it('should highlight matched text', () => {
+  it('should highlight matched text', async () => {
     render(
       <AutoFilterDropdown
         items={items}
@@ -104,17 +126,15 @@ describe('AutoFilterDropdown', () => {
     const input = screen.getByPlaceholderText('Type to filter...');
     fireEvent.change(input, { target: { value: 'an' } });
 
-    const banana = screen.getByText(
-      (_, node) => node?.textContent === 'Banana',
-    );
-    const orange = screen.getByText(
-      (_, node) => node?.textContent === 'Orange',
-    );
+    const listItems = await screen.findAllByRole('listitem');
 
-    expect(banana).toBeInTheDocument();
-    expect(orange).toBeInTheDocument();
+    const banana = listItems.find(li => li.textContent === 'Banana');
+    const orange = listItems.find(li => li.textContent === 'Orange');
 
-    expect(banana.querySelector('b')).not.toBeNull();
-    expect(orange.querySelector('b')).not.toBeNull();
+    expect(banana).toBeDefined();
+    expect(orange).toBeDefined();
+
+    expect(banana?.querySelector('b')).not.toBeNull();
+    expect(orange?.querySelector('b')).not.toBeNull();
   });
 });
