@@ -29,7 +29,6 @@ export const DialogDemo = () => {
         </button>
       </div>
 
-      {/* Confirmation Dialog */}
       <Dialog
         isOpen={confirmDialog.isOpen}
         onClose={confirmDialog.close}
