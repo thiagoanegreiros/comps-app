@@ -8,7 +8,7 @@ export function useStorage<K extends keyof StorageTypes>(
 ): [StorageTypes[K] | null, (value: StorageTypes[K]) => void, () => void] {
   const [value, setValue] = useState<StorageTypes[K] | null>(() => {
     const stored = storage.getItem(key);
-    return stored !== null ? stored : initialValue;
+    return stored ?? initialValue;
   });
 
   useEffect(() => {
