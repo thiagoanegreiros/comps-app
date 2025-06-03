@@ -24,7 +24,11 @@ afterEach(() => {
 describe('AutoFilterDropdown', () => {
   it('should render filtered items after input', async () => {
     render(
-      <AutoFilterDropdown items={items} labelKey="name" valueChange={() => {}} />
+      <AutoFilterDropdown
+        items={items}
+        labelKey="name"
+        valueChange={() => {}}
+      />,
     );
 
     const input = screen.getByPlaceholderText('Type to filter...');
@@ -35,8 +39,8 @@ describe('AutoFilterDropdown', () => {
     });
 
     const listItems = await screen.findAllByRole('listitem');
-    const appleItem = listItems.find((li) => li.textContent === 'Apple');
-    const pineappleItem = listItems.find((li) => li.textContent === 'Pineapple');
+    const appleItem = listItems.find(li => li.textContent === 'Apple');
+    const pineappleItem = listItems.find(li => li.textContent === 'Pineapple');
 
     expect(appleItem).toBeDefined();
     expect(pineappleItem).toBeDefined();
@@ -44,7 +48,11 @@ describe('AutoFilterDropdown', () => {
 
   it('should highlight matched text', async () => {
     render(
-      <AutoFilterDropdown items={items} labelKey="name" valueChange={() => {}} />
+      <AutoFilterDropdown
+        items={items}
+        labelKey="name"
+        valueChange={() => {}}
+      />,
     );
 
     const input = screen.getByPlaceholderText('Type to filter...');
@@ -55,8 +63,8 @@ describe('AutoFilterDropdown', () => {
     });
 
     const listItems = await screen.findAllByRole('listitem');
-    const banana = listItems.find((li) => li.textContent === 'Banana');
-    const orange = listItems.find((li) => li.textContent === 'Orange');
+    const banana = listItems.find(li => li.textContent === 'Banana');
+    const orange = listItems.find(li => li.textContent === 'Orange');
 
     expect(banana).toBeDefined();
     expect(orange).toBeDefined();
@@ -67,7 +75,11 @@ describe('AutoFilterDropdown', () => {
 
   it('should show "No results found" when nothing matches', async () => {
     render(
-      <AutoFilterDropdown items={items} labelKey="name" valueChange={() => {}} />
+      <AutoFilterDropdown
+        items={items}
+        labelKey="name"
+        valueChange={() => {}}
+      />,
     );
 
     const input = screen.getByPlaceholderText('Type to filter...');
@@ -85,7 +97,11 @@ describe('AutoFilterDropdown', () => {
     const handleChange = jest.fn();
 
     render(
-      <AutoFilterDropdown items={items} labelKey="name" valueChange={handleChange} />
+      <AutoFilterDropdown
+        items={items}
+        labelKey="name"
+        valueChange={handleChange}
+      />,
     );
 
     const input = screen.getByPlaceholderText('Type to filter...');
@@ -96,7 +112,7 @@ describe('AutoFilterDropdown', () => {
     });
 
     const listItems = await screen.findAllByRole('listitem');
-    const bananaItem = listItems.find((li) => li.textContent === 'Banana');
+    const bananaItem = listItems.find(li => li.textContent === 'Banana');
     expect(bananaItem).toBeDefined();
 
     if (bananaItem) fireEvent.click(bananaItem);

@@ -79,7 +79,7 @@ export const DialogDemo = () => {
 
             <div className="flex flex-wrap justify-center gap-3">
               {[...Array(8)].map((_, idx) => (
-                <div key={idx} className="w-20 h-20">
+                <div key={idx} className="w-15 h-15">
                   <img
                     className="w-full h-full object-cover rounded shadow"
                     src={`https://picsum.photos/150/150?random=${idx + 1}`}
@@ -92,7 +92,7 @@ export const DialogDemo = () => {
         }
       />
       <button
-        className="bg-red-500 text-white py-2 px-4 rounded shadow cursor-pointer hover:bg-red-600 transition"
+        className="mt-64 bg-red-500 text-white py-2 px-4 rounded shadow cursor-pointer hover:bg-red-600 transition"
         onClick={() => navigate('/')}
       >
         Home

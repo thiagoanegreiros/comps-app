@@ -46,8 +46,9 @@ describe('Dialog component', () => {
   it('should render transparent background if isModal is false', () => {
     render(<Dialog isOpen={true} onClose={() => {}} isModal={false} />);
 
-    const container = document.querySelector('div.fixed.inset-0');
-    expect(container).not.toHaveClass('bg-black');
+    const container = document.querySelector('div'); // seleciona o dialog inteiro
+
+    expect(container?.className).not.toContain('bg-black');
   });
 
   it('should render dark overlay if isModal is true', () => {

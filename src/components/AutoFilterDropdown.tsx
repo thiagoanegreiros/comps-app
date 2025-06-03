@@ -43,7 +43,7 @@ export function AutoFilterDropdown<T>({
             <b key={idx}>{part}</b>
           ) : (
             part
-          )
+          ),
         )}
       </>
     );
@@ -68,7 +68,7 @@ export function AutoFilterDropdown<T>({
         type="text"
         placeholder="Type to filter..."
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={e => setInputValue(e.target.value)}
         className="w-full px-4 py-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 

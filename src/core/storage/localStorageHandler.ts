@@ -23,10 +23,7 @@ export class LocalStorageHandler<T extends StorageTypes> {
     this.notifySubscribers(key, null);
   }
 
-  subscribe<K extends keyof T>(
-    key: K,
-    callback: Callback<T[K]>,
-  ): () => void {
+  subscribe<K extends keyof T>(key: K, callback: Callback<T[K]>): () => void {
     if (!this.subscribers[key]) {
       this.subscribers[key] = new Set();
     }

@@ -3,7 +3,7 @@ import { AutoFilterDropdown } from '../components/AutoFilterDropdown';
 import { useNavigate } from 'react-router-dom';
 
 interface Country {
-  name: string;
+  countryName: string;
   code: string;
 }
 
@@ -24,11 +24,11 @@ export const Filter = () => {
   }, []);
 
   const countries: Country[] = [
-    { name: 'Brazil', code: 'BR' },
-    { name: 'Canada', code: 'CA' },
-    { name: 'Germany', code: 'DE' },
-    { name: 'Argentina', code: 'AR' },
-    { name: 'France', code: 'FR' },
+    { countryName: 'Brazil', code: 'BR' },
+    { countryName: 'Canada', code: 'CA' },
+    { countryName: 'Germany', code: 'DE' },
+    { countryName: 'Argentina', code: 'AR' },
+    { countryName: 'France', code: 'FR' },
   ];
 
   return (
@@ -42,7 +42,7 @@ export const Filter = () => {
           <h2 className="text-xl font-semibold mb-2">Countries</h2>
           <AutoFilterDropdown
             items={countries}
-            labelKey="name"
+            labelKey="countryName"
             valueChange={item => console.log('Selected country:', item)}
           />
         </div>
