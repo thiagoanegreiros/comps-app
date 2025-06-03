@@ -42,6 +42,23 @@ describe('Dialog component', () => {
     expect(screen.getByText('Body Content')).toBeInTheDocument();
     expect(screen.getByText('Footer Content')).toBeInTheDocument();
   });
+    
+  it('should render header, body and footer when provided and isModal is false', () => {
+    render(
+      <Dialog
+        isOpen={true}
+        onClose={() => {}}
+        isModal={false}
+        header={<div>Header Content</div>}
+        body={<div>Body Content</div>}
+        footer={<div>Footer Content</div>}
+      />
+    );
+
+    expect(screen.getByText('Header Content')).toBeInTheDocument();
+    expect(screen.getByText('Body Content')).toBeInTheDocument();
+    expect(screen.getByText('Footer Content')).toBeInTheDocument();
+  });
 
   it('should render transparent background if isModal is false', () => {
     render(<Dialog isOpen={true} onClose={() => {}} isModal={false} />);
